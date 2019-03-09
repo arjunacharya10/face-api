@@ -15,40 +15,6 @@ var db = require('knex')({
     }
   });
 
-/*db.select('*').from('users').then(data=>{
-    console.log(data);
-}); */
-
-
-
-
-const database = {
-    users: [
-        {
-            id: 123,
-            name: 'John',
-            email: 'john@gmail.com',
-            password: 'cookies',
-            entries: 0,
-            joined: new Date()
-        },
-        {
-            id: 124,
-            name: 'Sally',
-            email: 'sally@gmail.com',
-            password: 'bananas',
-            entries: 0,
-            joined: new Date()
-        }
-    ],
-    login:[
-        {
-            id: '987',
-            hash: '',
-            email: 'john@gmail.com'
-        }
-    ]
-}
 
 
 app.use(bp.json());
@@ -90,34 +56,8 @@ app.post('/register',(req,res)=>{
 
     const body = req.body;
 
-    /*bcrypt.hash(body.password, null, null, function(err, hash) {
-        // Store hash in your password DB.
-        console.log(hash);
-    });*/
-
     const hash = bcrypt.hashSync(body.password);
-    /* db.transaction(trx=>{
-         trx
-         .returning('email')
-         .insert({
-             hash: hash,
-             email : body.email
-         })
-         .into('login')
-         .then(loginEmail=>{
-            trx('users').insert({
-                email: loginEmail[0],
-                name: body.name,
-                joined: new Date()
-            }).then(response=>{
-                res.json('success');
-            }).catch(err=>{
-                res.status(400).json('failed')
-            });
-         })
-         .then(trx.commit)
-         .catch(trx.rollback)
-     })*/
+    
 
     db('login').insert({
         hash: hash,
@@ -139,10 +79,6 @@ app.post('/register',(req,res)=>{
     }).catch(err=> {
         res.json('failed to create user/ maybe duplicate')
     })
-
-    
-
-
     
 });
 
@@ -177,17 +113,6 @@ app.put('/image',(req,res)=>{
    })
 })
 
-//bcrypt.hash("bacon", null, null, function(err, hash) {
-    // Store hash in your password DB.
-//});
-
-// Load hash from your password DB.
-/*bcrypt.compare("bacon", hash, function(err, res) {
-    // res == true
-});
-bcrypt.compare("veggies", hash, function(err, res) {
-    // res = false
-});*/
 
 
 app.listen(process.env.PORT || 3000,()=>{
