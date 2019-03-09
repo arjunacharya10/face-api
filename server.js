@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 
 var db = require('knex')({
-    client: 'mysql',
+    client: 'pg',
     connection: {
        connectionString : process.env.DATABASE_URL,
       ssl: true
