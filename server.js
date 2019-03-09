@@ -8,7 +8,7 @@ const cors = require('cors');
 var db = require('knex')({
     client: 'mysql',
     connection: {
-      host : '127.0.0.1',
+      host : 'postgresql-vertical-54165',
       user : 'arjun',
       password : 'Kamalakshi1998',
       database : 'smartbrain'
